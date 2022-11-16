@@ -4,6 +4,7 @@ fun main(args: Array<String>) {
 
 //    val sol = Solution().romanToInt("III")
     println(str.substring(0))
+    println(Solution().isValid("))"))
 
 // Lambdas are code blocks enclosed in curly braces.
     /*  items.fold(0) {
@@ -74,15 +75,17 @@ class Solution {
 
 
         do {
-            str["string"]=s
+
+//            str["string"]=s
             val str = getLastChar(s)
             sum = str["number"] as Int
             print(str["string"])
-            s = str["string"]
+//            s = str["string"]
         } while (str["string"] != "")
 
         return sum
     }
+
 
     fun getLastChar(str: String): Map<String, Any> {
         val map = mutableMapOf<String, Any>()
@@ -170,6 +173,96 @@ class Solution {
         }
         return map
 
+    }
+
+
+    fun isValid(s: String): Boolean {
+        var boolean = true
+        if (s.length % 2 == 0) {
+
+            /*
+            * iterate all chars
+            * if
+            * */
+            val opens = ArrayDeque<Char>()
+            val ends = ArrayDeque<Char>()
+
+            s.forEach { c ->
+                run {
+                    when (c) {
+                        '}', '{', ')', '(', '[', ']' -> {
+                            print("passed1")
+                            when (c) {
+
+                                '(', '{', '[' -> {
+                                    print("passed2")
+                                    opens.addLast(c)
+                                }
+
+                                '}' -> {
+                                    if (opens.isEmpty()|| opens.last() != '{') {
+
+                                        boolean = false
+                                        return false
+
+                                    } else {
+
+                                        if (opens.size != 0) opens.removeLast()
+                                    }
+                                }
+
+                                ')' -> {
+                                    if (opens.isEmpty() || opens.last() != '(') {
+                                        boolean = false
+                                        return false
+                                    } else {
+                                        if (opens.size != 0) opens.removeLast()
+                                    }
+
+
+                                }
+
+                                ']' -> {
+                                    print("closed")
+                                    if (opens.isEmpty() || opens.last() != '[') {
+                                        boolean = false
+                                        return false
+
+                                    } else {
+                                        if (opens.size != 0) opens.removeLast()
+                                    }
+
+
+                                }
+
+                                else -> {
+
+                                    boolean = false
+                                    return false
+                                }
+
+
+                            }
+                        }
+
+                        else -> {
+                            boolean = false
+                            return false
+                        }
+
+                    }
+
+
+                }
+            }
+
+            if (opens.isNotEmpty())
+                return false
+
+        } else
+            boolean = false
+
+        return boolean
     }
 
 }
