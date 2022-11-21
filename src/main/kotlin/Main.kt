@@ -1,10 +1,10 @@
 fun main(args: Array<String>) {
     val str = "hello"
-
-
+    val sol: Solution = Solution()
+//    print(Solution().removeElement(intArrayOf(3, 2, 2, 3), 2))
+    print(sol.countDigitOne(1000))
 //    val sol = Solution().romanToInt("III")
-    println(str.substring(0))
-    println(Solution().isValid("))"))
+
 
 // Lambdas are code blocks enclosed in curly braces.
     /*  items.fold(0) {
@@ -25,6 +25,117 @@ fun main(args: Array<String>) {
 }
 
 class Solution {
+    fun isAnagram(s: String?, t: String?): Boolean {
+        val leng = s!!.length
+        val firs = s[0]
+
+        t!!.forEachIndexed() { i, ch ->
+            run {
+                if (ch == firs) {
+
+                }
+
+            }
+        }
+        return true;
+    }
+
+
+    fun countDigitOne(n: Int): Int {
+        return getSous(n)
+
+    }
+
+    fun getHuns(n: Int): Int {
+        var tens = 0
+        var huns = n / 100
+        if (n > 1000) {
+            tens = getTens(n % 100)
+            tens += 140
+            tens += (20 * ((n - 200) / 100))
+            tens+=2
+        } else
+            if (huns == 1000) {
+                tens = getTens(n % 100)
+                tens += 140
+                tens += (20 * ((n - 200) / 100))
+                tens += 3
+            } else
+                if (huns >= 2) {
+                    tens = getTens(n % 100)
+                    tens += 140
+                    tens += (20 * ((n - 200) / 100))
+                } else {
+                    tens += getTens(n)
+                }
+        return tens
+
+    }
+
+    fun getSous(n: Int): Int {
+        var count = 0
+        var sou = n / 1000
+
+        if (sou >= 2) {
+            count = getHuns(n % 1000)
+            count += 1300
+            count += 300 * (sou - 2)
+
+        } else {
+            count = getHuns(n)
+
+        }
+        return count
+    }
+
+    fun getTens(n: Int): Int {
+        var counter = 0
+        for (i in 0..n) {
+
+            counter += getOnes(i)
+            /*  if (i.toString().contains("11") || i.toString().contains("101")) {
+                  counter += 2
+              } else
+                  if (i.toString().contains("1")) counter++*/
+        }
+
+
+//        counter = getOnes(n)
+        return counter
+        /*
+        *
+        *
+        * */
+    }
+
+    fun getOnes(n: Int): Int {
+        var counter = 0
+        for (c in n.toString()) {
+            if (c == '1') {
+                counter++
+            }
+        }
+        return counter
+    }
+
+    fun removeElement(nums: IntArray?, myval: Int): Int {
+        var newList: List<Int>? = null
+        var right = nums!!.size - 1
+        nums!!.forEachIndexed { i, v ->
+            run {
+                if (v == myval) {
+                    newList = nums.drop(i)
+//                    val
+
+                }
+
+            }
+        }
+        print(newList)
+        return nums.size
+
+
+    }
 
     fun runTwoSum() {
 
@@ -200,7 +311,7 @@ class Solution {
                                 }
 
                                 '}' -> {
-                                    if (opens.isEmpty()|| opens.last() != '{') {
+                                    if (opens.isEmpty() || opens.last() != '{') {
 
                                         boolean = false
                                         return false
@@ -263,6 +374,30 @@ class Solution {
             boolean = false
 
         return boolean
+    }
+
+
+    fun maxArea(height: IntArray): Int {
+
+        val myset: MutableSet<Int> = hashSetOf()
+
+
+        height.forEachIndexed { indexa, ia ->
+            run {
+                height.forEachIndexed { index, i ->
+                    run {
+
+                        myset.add(Math.abs((index + 1) - (indexa + 1)) * Math.min(i, ia))
+                    }
+
+                }
+            }
+
+
+        }
+        return myset.max() ?: 0
+
+
     }
 
 }
